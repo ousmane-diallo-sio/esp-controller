@@ -5,7 +5,7 @@ import userController from './domain/user/controller';
 import { authErrorHandler, requestLogger } from './lib/middlewares';
 import cors from "cors";
 import bodyParser from 'body-parser';
-import sleepNightController from './domain/sleepNight/controller';
+import gameConfigController from './domain/gameConfig/controller';
 
 const mongoConnectionString = `mongodb://${EnvConfig.MONGO_USER}:${EnvConfig.MONGO_PASSWORD}@controllerdb:${EnvConfig.MONGO_PORT}/${EnvConfig.MONGO_DB_NAME}`;
 
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.use("/user", userController);
-app.use("/sleep-night", sleepNightController);
+app.use("/game-config", gameConfigController);
 
 app.use(authErrorHandler);
 
