@@ -5,31 +5,41 @@
 #include <Arduino.h>
 #include <BleGamepad.h>  // https://github.com/lemmingDev/ESP32-BLE-Gamepad
 
-#define BUTTONPIN 35  // Pin button is attached to
+#define LED_BUILTIN 2
+#define BUTTONPIN 23  // Pin button is attached to
 
-BleGamepad bleGamepad;
+
+BleGamepad bleGamepad("Manette X", "Lemonware", 100);
 
 int previousButton1State = HIGH;
 
 void setup() {
-  pinMode(BUTTONPIN, INPUT_PULLUP);
+  Serial.begin(115200);
+  pinMode(BUTTONPIN, INPUT_PULLDOWN);
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  digitalWrite(LED_BUILTIN, HIGH);
   bleGamepad.begin();
 }
 
 void loop() {
-  if (bleGamepad.isConnected()) {
-
-    int currentButton1State = digitalRead(BUTTONPIN);
-
-    if (currentButton1State != previousButton1State) {
-      if (currentButton1State == LOW) {
-        Serial.print("Boutton 1 pressed");
-        bleGamepad.press(BUTTON_1);
-      } else {
-        Serial.print("Boutton 1 released");
-        bleGamepad.release(BUTTON_1);
-      }
-    }
-    previousButton1State = currentButton1State;
+  if (!bleGamepad.isConnected()) {
+    Serial.println("Gamepad not connected...");
+    return;
   }
+
+  int currentButton1State = digitalRead(BUTTONPIN);
+  Serial.print("current button state : ");
+  Serial.println(currentButton1State);
+
+  if (currentButton1State != previousButton1State) {
+    if (currentButton1State == LOW) {
+      Serial.println("Boutton 1 pressed");
+      bleGamepad.press(BUTTON_1);
+    } else {
+      Serial.println("Boutton 1 released");
+      bleGamepad.release(BUTTON_1);
+    }
+  }
+  previousButton1State = currentButton1State;
 }
