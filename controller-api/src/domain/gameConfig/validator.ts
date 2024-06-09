@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ButtonType } from '.';
+import { ButtonType } from './index';
 
 export const GameConfigValidator = z.strictObject({
   name: z.string(),

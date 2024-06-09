@@ -1,5 +1,3 @@
-import { NightTime } from "../nightTime";
-
 export interface User {
   username: string;
   email: string;

@@ -6,7 +6,7 @@ export interface GameConfig {
 export type CreateGameConfigDTO = GameConfig;
 
 export interface ButtonMapping {
-  [ButtonType]?: ButtonType;
+  [key: string]: ButtonType;
 }
 
 export enum ButtonType {

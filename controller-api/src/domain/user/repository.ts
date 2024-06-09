@@ -7,7 +7,7 @@ import { ServerMessage } from '../../types/response';
 import UserModel from './model';
 import { omit } from '../../lib/utils';
 
-class UserRepository implements Repository<User, CreateUserDTO> {
+class UserRepository implements Repository<User> {
 
   async create(data: CreateUserDTO): Promise<RepositoryReturnType<typeof out>> {
     const validation = UserValidator.safeParse(data);
