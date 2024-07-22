@@ -16,5 +16,14 @@ export const GameConfigSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
+
+GameConfigSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+});
+GameConfigSchema.set('toJSON', {
+  virtuals: true
+});
+
+
 const GameConfigModel = mongoose.model('GameConfig', GameConfigSchema);
 export default GameConfigModel;
